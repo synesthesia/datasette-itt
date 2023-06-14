@@ -1,4 +1,9 @@
-title: Datasette demo of DfE ITT stats
+title: "ITT exploration"
+description: "Exploring some government data around recruitment to Initial Teacher Training"
+license: "Open Government Licence v3.0"
+license_url: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+source: "Department for Education"
+source_url: "https://www.gov.uk/government/publications/monthly-statistics-on-initial-teacher-training-recruitment-2023-to-2024"
 plugins:
   datasette-dashboards:
     itt-applications:
@@ -21,10 +26,11 @@ plugins:
           library: vega-lite
           display:
             transform: 
-              -    {calculate: "indexof([ 'Conditions Pending', 'Awaiting provider decisions', 'Deferred', 'Recruited',  'Withdrew an application', 'Received an offer but did not respond', 'Declined an offer', 'Application rejected'], datum.scheme)",  as: "order"  }
+              -    {calculate: "indexof([ 'Conditions Pending', 'Awaiting provider decisions', 'Deferred', 'Recruited',  'Withdrew an application', 'Received an offer but did not respond', 'Declined an offer', 'Application rejected'], datum.status)",  as: "order"  }
             mark: { type: area, tooltip: true }
             encoding:
               x: { field: report_date, timeUnit: yearmonth }
               y: { aggregate: "sum", field: total }
               color: {field: status, scale: {"scheme": "tableau10"}}
+              order: {field: "order", type: "ordinal"}
  
