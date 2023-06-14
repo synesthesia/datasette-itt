@@ -1,9 +1,9 @@
-title: Datasette demo of ITTT stats
+title: Datasette demo of DfE ITT stats
 plugins:
   datasette-dashboards:
     itt-applications:
       title: ITT applications
-      description: Showing some nice metrics
+      description: Data about applicaitons to Initial Teacher Training
       layout:
         - [analysis-note]
         - [applications-cfd]
