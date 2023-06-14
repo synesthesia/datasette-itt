@@ -20,6 +20,8 @@ plugins:
           query: SELECT Status as status, Total as total, report_date FROM application_status ORDER BY report_date
           library: vega-lite
           display:
+            transform: 
+              -    {calculate: "indexof([ 'Conditions Pending', 'Awaiting provider decisions', 'Deferred', 'Recruited',  'Withdrew an application', 'Received an offer but did not respond', 'Declined an offer', 'Application rejected'], datum.scheme)",  as: "order"  }
             mark: { type: area, tooltip: true }
             encoding:
               x: { field: report_date, timeUnit: yearmonth }
