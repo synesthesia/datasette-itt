@@ -1,0 +1,36 @@
+title: Datasette demo of ITTT stats
+plugins:
+  datasette-dashboards:
+    itt-applications:
+      title: ITT applications
+      description: Showing some nice metrics
+      layout:
+        - [analysis-note]
+        - [applications-cfd]
+   
+      filters:
+        date_start:
+          name: Date Start
+          type: date
+          default: "2021-01-01"
+        date_end:
+          name: Date End
+          type: date
+      charts:
+        analysis-note:
+          library: markdown
+          display: |-
+            # Analysis notes
+            > A look through the DfE ITT application statistics for ttraining in 2023-24
+        applications-cfd:
+          title: Cumulative flow of applications
+          db: itt
+          query: SELECT Status as status, total, report_date FROM application_Status ORDER BY report_date
+          library: vega-lite
+          display:
+            mark: { type: area, tooltip: true }
+            encoding:
+              x: { field: report_date, timeUnit: yearmonth }
+              y: { aggregate: "sum", field: total }
+              color: {field: status}
+ 
